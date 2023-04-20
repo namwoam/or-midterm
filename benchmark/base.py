@@ -31,7 +31,7 @@ class Order():
         self.return_time = return_time
 
     def __str__(self) -> str:
-        return f"{self.order_id},{self.level},{self.pickup_station},{self.return_station},{self.pickup_time.strftime('%Y/%m/%d %H::%M')},{self.return_time.strftime('%Y/%m/%d %H::%M')}"
+        return f"{self.order_id},{self.level},{self.pickup_station},{self.return_station},{self.pickup_time.strftime('%Y/%m/%d %H:%M')},{self.return_time.strftime('%Y/%m/%d %H:%M')}"
 
 
 class Distances():
@@ -69,7 +69,7 @@ class BaseBenchmark():
         lines.append("==========")
         lines.append("Car ID,Level,Initial station")
         lines.extend([str(car) for car in self.cars])
-        lines.extend("==========")
+        lines.append("==========")
         lines.append("Car level,Hour rate")
         lines.extend([str(rate) for rate in self.rates])
         lines.append("==========")
