@@ -10,7 +10,7 @@ import orders
 
 benchmark = BaseBenchmark(1000, 10000, 10, 10000, 20, 1000000)
 car_rate.linear_car_rate(benchmark)
-car_level.random_car_level(benchmark)
+car_level.middle_normal_car_level(benchmark)
 station.random_station(benchmark)
 start_site.random_start_site(benchmark)
 orders.random_orders(benchmark)

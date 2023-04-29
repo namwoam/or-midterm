@@ -5,6 +5,8 @@ You only need to ensure that the TAs can run your algorithm here.
 from MTP_lib import *
 from algorithm_module import heuristic_algorithm
 
+import sys
+
 
 def check_format(assignment, rearrangement):
     for i in assignment:
@@ -45,17 +47,14 @@ if __name__ == '__main__':
         profit = np.nan
         feasibility = False
 
-        try:
-            '''
+        '''
             1. We will import your algorithm here and give you file_path (e.g.,'data/instance01.txt') as the function argument.
             2. You need to return two lists "assignment" and "rearrangement".
             '''
-            file_path = 'data/' + file_name
-            assignment, rearrangement = heuristic_algorithm(file_path)
+        file_path = 'data/' + file_name
+        assignment, rearrangement = heuristic_algorithm(file_path)
 
-        except BaseException as e:
-            print(e)
-            print("the algorithm has errors")
+        print("the algorithm has errors")
 
         end_time = t.time()
         spent_time = end_time - start_time
