@@ -66,12 +66,17 @@ class Solution:
     def output(self):
         return self.assignment, [[rearragement.car_id, rearragement.starting_station, rearragement.end_staion, rearragement.start_time.strftime('%Y/%m/%d %H:%M')] for rearragement in self.rearragement]
 
-    def get_profit(self):
-        profit = 0
+    def update_from_outside(self):
         for i, assignment in enumerate(self.assignment):
+            self.orders[i].accept_car_id = assignment
             if assignment == -1:
-                continue
-            self.orders[i].accept = True
+                self.orders[i].accept = False
+            else:
+                self.orders[i].accept = True
+
+    def get_profit(self):
+        self.update_from_outside()
+        profit = 0
         for order in self.orders:
             time_duration = order.return_time - order.pickup_time
             hour_duration = (time_duration.seconds) // (60*60)
@@ -84,8 +89,39 @@ class Solution:
         return profit
 
     def get_feasibility(self):
-        feasibile = True
-        return feasibile
+        self.update_from_outside()
+        current_time = datetime.datetime(2023, 1, 1)
+        stations: list[list[int]] = []
+        total_used_rearrange_time = 0  # in minutes
+        for i in range(self.n_S):
+            stations.append([])
+        for car in self.cars:
+            stations[car.initial_station-1].append(car.car_id)
+        for half_hour in range(self.n_D*24*2):
+            current_time += datetime.timedelta(minutes=30)
+            if total_used_rearrange_time > self.B:
+                return False
+            for order in self.orders:
+                if order.accept == True and order.pickup_time == current_time:
+                    if order.accept_car_id in stations[order.pickup_station-1]:
+                        stations[order.pickup_station -
+                                 1].remove(order.accept_car_id)
+                    else:
+                        return False
+                if order.accept == True and order.return_time == current_time:
+                    stations[order.pickup_station -
+                             1].append(order.accept_car_id)
+            for rearrange in self.rearragement:
+                if rearrange.start_time == current_time:
+                    if rearrange.car_id in stations[rearrange.starting_station-1]:
+                        stations[rearrange.starting_station -
+                                 1].remove(rearrange.car_id)
+                    else:
+                        return False
+                if rearrange.start_time + datetime.timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time:
+                    stations[rearrange.end_staion-1].append(rearrange.car_id)
+
+        return True
 
 
 class Car():
@@ -110,6 +146,7 @@ class Order():
         self.pickup_time = pickup_time
         self.return_time = return_time
         self.accept = False
+        self.accept_car_id = -1
 
 
 class Rearragement():
@@ -124,5 +161,13 @@ class Rearragement():
 def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[list[any]]):
     solution = Solution(os.path.join(os.path.dirname(__file__), file_path))
     solution.assignment = assignment
-    solution.rearragement = rearrangement
+    solution.rearragement = []
+    for list_rearrangement in rearrangement:
+        car_id, starting_station, end_station, start_time = list_rearrangement
+        car_id = int(car_id)
+        starting_station = int(starting_station)
+        ending_station = int(end_station)
+        start_time = datetime.datetime.strptime(start_time, '%Y/%m/%d %H:%M')
+        solution.rearragement.append(Rearragement(
+            car_id, starting_station, ending_station, start_time))
     return solution.get_feasibility(), solution.get_profit()
