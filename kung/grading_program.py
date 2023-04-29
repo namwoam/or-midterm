@@ -5,6 +5,7 @@ You only need to ensure that the TAs can run your algorithm here.
 from MTP_lib import *
 from algorithm_module import heuristic_algorithm
 
+
 def check_format(assignment, rearrangement):
     for i in assignment:
         if not isinstance(i, int):
@@ -28,13 +29,15 @@ def check_format(assignment, rearrangement):
 
     return True
 
+
 if __name__ == '__main__':
 
     # read all instances (.txt file) under data folder
-    all_data_list = os.listdir('data')
+    all_data_list = os.listdir(os.path.join(os.path.dirname(__file__), 'data'))
 
     # evaluate all instances
-    result_df = pd.DataFrame(columns = ['Data name', 'Time', 'Profit', 'Feasibility'])
+    result_df = pd.DataFrame(
+        columns=['Data name', 'Time', 'Profit', 'Feasibility'])
 
     for file_name in all_data_list:
 
@@ -50,7 +53,8 @@ if __name__ == '__main__':
             file_path = 'data/' + file_name
             assignment, rearrangement = heuristic_algorithm(file_path)
 
-        except:
+        except BaseException as e:
+            print(e)
             print("the algorithm has errors")
 
         end_time = t.time()
@@ -67,11 +71,10 @@ if __name__ == '__main__':
         except:
             print("the algorithm has errors")
 
-
         result_df = pd.concat([result_df, pd.DataFrame([{'Data name': file_name,
-                                      'Time': spent_time,
-                                      'Profit': profit,
-                                      'Feasibility': feasibility}])], ignore_index = True)
+                                                         'Time': spent_time,
+                                                         'Profit': profit,
+                                                         'Feasibility': feasibility}])], ignore_index=True)
 
 # output result
-result_df.to_csv('result.csv', index = False)
+result_df.to_csv('result.csv', index=False)
