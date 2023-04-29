@@ -167,7 +167,7 @@ def heuristic_algorithm(file_path):
                     df_carPrice.loc[order.level - 1, 'Hour rate'] * \
                     (order.return_time - order.pickup_time)
         t += 0.5
-    print(file_path, 'profit =', profit)
+    # print(file_path, 'profit =', profit)
 
     assignment = [int(i) for i in assignment]
     return assignment, rearrangement

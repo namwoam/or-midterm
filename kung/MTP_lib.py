@@ -90,7 +90,7 @@ class Solution:
 
     def get_feasibility(self):
         self.update_from_outside()
-        current_time = datetime(2023, 1, 1)
+        start_time = datetime(2023, 1, 1)
         stations: list[list[int]] = []
         total_used_rearrange_time = 0  # in minutes
         for i in range(self.n_S):
@@ -98,27 +98,40 @@ class Solution:
         for car in self.cars:
             stations[car.initial_station-1].append(car.car_id)
         for half_hour in range(self.n_D*24*2):
-            current_time += timedelta(minutes=30)
+            current_time = start_time + timedelta(minutes=30*half_hour)
+            # print(f"At: {current_time.isoformat()}")
+            for i, station in enumerate(stations):
+                # print(f"station: {i+1}:", len(station))
+                pass
             if total_used_rearrange_time > self.B:
+                print("Total time exceed B")
                 return False
             for order in self.orders:
                 if order.accept == True and order.pickup_time == current_time:
                     if order.accept_car_id in stations[order.pickup_station-1]:
                         stations[order.pickup_station -
                                  1].remove(order.accept_car_id)
+                        # print(f"car {order.accept_car_id} leave from station {order.pickup_station}")
                     else:
+                        print(
+                            f"car {order.accept_car_id} not exist at station {order.pickup_station} at assignment")
                         return False
                 if order.accept == True and order.return_time == current_time:
-                    stations[order.pickup_station -
+                    stations[order.return_station -
                              1].append(order.accept_car_id)
+                    # print(f"car {order.accept_car_id} return to station {order.return_station}")
             for rearrange in self.rearragement:
                 if rearrange.start_time == current_time:
                     if rearrange.car_id in stations[rearrange.starting_station-1]:
                         stations[rearrange.starting_station -
                                  1].remove(rearrange.car_id)
                     else:
+                        print(
+                            f"car {rearrange.car_id} not exist at station {rearrange.starting_station} at rearrange ")
                         return False
-                if rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time:
+                if rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time and rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) < current_time + timedelta(minutes=30):
+                    total_used_rearrange_time += self.distance[rearrange.starting_station -
+                                                               1][rearrange.end_staion-1]
                     stations[rearrange.end_staion-1].append(rearrange.car_id)
 
         return True
