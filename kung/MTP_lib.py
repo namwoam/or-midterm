@@ -58,7 +58,6 @@ class Solution:
                         continue
                     f_station, t_station, station_distance = list(
                         map(int, line.split(",")))
-                    print(f_station, t_station, station_distance)
                     if f_station != len(self.distance):
                         self.distance.append([station_distance])
                     else:
@@ -66,6 +65,19 @@ class Solution:
 
     def output(self):
         return self.assignment, [[rearragement.car_id, rearragement.starting_station, rearragement.end_staion, rearragement.start_time.strftime('%Y/%m/%d %H:%M')] for rearragement in self.rearragement]
+
+    def get_profit(self):
+        profit = 0
+        for order in self.orders:
+            if order.accept == True:
+                pass
+            else:
+                pass
+        return profit
+
+    def get_feasibility(self):
+        feasibile = True
+        return feasibile
 
 
 class Car():
@@ -99,3 +111,10 @@ class Rearragement():
         self.end_staion = ending_station
         self.start_time = start_time
         pass
+
+
+def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[list[any]]):
+    solution = Solution(os.path.join(os.path.dirname(__file__), file_path))
+    solution.assignment = assignment
+    solution.rearragement = rearrangement
+    return solution.get_feasibility(), solution.get_profit()

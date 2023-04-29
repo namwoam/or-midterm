@@ -46,15 +46,17 @@ if __name__ == '__main__':
         start_time = t.time()
         profit = np.nan
         feasibility = False
-
-        '''
-            1. We will import your algorithm here and give you file_path (e.g.,'data/instance01.txt') as the function argument.
-            2. You need to return two lists "assignment" and "rearrangement".
+        try:
             '''
-        file_path = 'data/' + file_name
-        assignment, rearrangement = heuristic_algorithm(file_path)
+                1. We will import your algorithm here and give you file_path (e.g.,'data/instance01.txt') as the function argument.
+                2. You need to return two lists "assignment" and "rearrangement".
+                '''
+            file_path = 'data/' + file_name
+            assignment, rearrangement = heuristic_algorithm(file_path)
 
-        print("the algorithm has errors")
+        except BaseException as e:
+            print(e)
+            print("the algorithm has errors")
 
         end_time = t.time()
         spent_time = end_time - start_time
@@ -66,8 +68,10 @@ if __name__ == '__main__':
             if not check_format(assignment, rearrangement):
                 print("the format has errors")
 
-            # feasibility, profit = find_obj_value(file_path, assignment, rearrangement)
-        except:
+            feasibility, profit = find_obj_value(
+                file_path, assignment, rearrangement)
+        except BaseException as e:
+            print(e)
             print("the algorithm has errors")
 
         result_df = pd.concat([result_df, pd.DataFrame([{'Data name': file_name,
