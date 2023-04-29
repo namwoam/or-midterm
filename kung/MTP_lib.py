@@ -68,11 +68,16 @@ class Solution:
 
     def get_profit(self):
         profit = 0
+
         for order in self.orders:
+            time_duration = order.return_time - order.pickup_time
+            hour_duration = (time_duration.seconds) // (60*60)
             if order.accept == True:
-                pass
+                profit += self.rates[order.level -
+                                     1].hour_rate * hour_duration
             else:
-                pass
+                profit -= 2 * self.rates[order.level -
+                                         1].hour_rate * hour_duration
         return profit
 
     def get_feasibility(self):
