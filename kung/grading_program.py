@@ -4,6 +4,7 @@ You only need to ensure that the TAs can run your algorithm here.
 '''
 from MTP_lib import *
 from algorithm_module import heuristic_algorithm
+from jen_algor import heuristic_algorithm as jen
 
 import sys
 
@@ -52,7 +53,7 @@ if __name__ == '__main__':
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
             file_path = 'data/' + file_name
-            assignment, rearrangement = heuristic_algorithm(file_path)
+            assignment, rearrangement = jen(file_path)
 
         except BaseException as e:
             print(e)
@@ -61,18 +62,14 @@ if __name__ == '__main__':
         end_time = t.time()
         spent_time = end_time - start_time
 
-        try:
-            '''
-            We will check the format, feasibility, and calculate the objective values here.
-            '''
-            if not check_format(assignment, rearrangement):
-                print("the format has errors")
+        '''
+        We will check the format, feasibility, and calculate the objective values here.
+        '''
+        if not check_format(assignment, rearrangement):
+            print("the format has errors")
 
-            feasibility, profit = find_obj_value(
-                file_path, assignment, rearrangement)
-        except BaseException as e:
-            print(e)
-            print("the algorithm has errors")
+        feasibility, profit = find_obj_value(
+            file_path, assignment, rearrangement)
 
         result_df = pd.concat([result_df, pd.DataFrame([{'Data name': file_name,
                                                          'Time': spent_time,

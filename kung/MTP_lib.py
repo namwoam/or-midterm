@@ -5,7 +5,7 @@ import os
 import pandas as pd  # version: 2.0.0
 import numpy as np
 from gurobipy import *
-import datetime
+from datetime import *
 
 
 class Solution:
@@ -46,9 +46,9 @@ class Solution:
                     level = int(level)
                     p_station = int(p_station)
                     r_station = int(r_station)
-                    p_time = datetime.datetime.strptime(
+                    p_time = datetime.strptime(
                         p_time, '%Y/%m/%d %H:%M')
-                    r_time = datetime.datetime.strptime(
+                    r_time = datetime.strptime(
                         r_time, '%Y/%m/%d %H:%M')
 
                     self.orders.append(
@@ -90,7 +90,7 @@ class Solution:
 
     def get_feasibility(self):
         self.update_from_outside()
-        current_time = datetime.datetime(2023, 1, 1)
+        current_time = datetime(2023, 1, 1)
         stations: list[list[int]] = []
         total_used_rearrange_time = 0  # in minutes
         for i in range(self.n_S):
@@ -98,7 +98,7 @@ class Solution:
         for car in self.cars:
             stations[car.initial_station-1].append(car.car_id)
         for half_hour in range(self.n_D*24*2):
-            current_time += datetime.timedelta(minutes=30)
+            current_time += timedelta(minutes=30)
             if total_used_rearrange_time > self.B:
                 return False
             for order in self.orders:
@@ -118,7 +118,7 @@ class Solution:
                                  1].remove(rearrange.car_id)
                     else:
                         return False
-                if rearrange.start_time + datetime.timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time:
+                if rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time:
                     stations[rearrange.end_staion-1].append(rearrange.car_id)
 
         return True
@@ -138,7 +138,7 @@ class Rates():
 
 
 class Order():
-    def __init__(self, order_id: int,  level: int, pickup_station: int, return_station: int, pickup_time: datetime.datetime, return_time: datetime.datetime) -> None:
+    def __init__(self, order_id: int,  level: int, pickup_station: int, return_station: int, pickup_time: datetime, return_time: datetime) -> None:
         self.order_id = order_id
         self.level = level
         self.pickup_station = pickup_station
@@ -167,7 +167,7 @@ def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[li
         car_id = int(car_id)
         starting_station = int(starting_station)
         ending_station = int(end_station)
-        start_time = datetime.datetime.strptime(start_time, '%Y/%m/%d %H:%M')
+        start_time = datetime.strptime(start_time, '%Y/%m/%d %H:%M')
         solution.rearragement.append(Rearragement(
             car_id, starting_station, ending_station, start_time))
     return solution.get_feasibility(), solution.get_profit()
