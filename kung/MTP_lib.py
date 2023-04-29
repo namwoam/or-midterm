@@ -68,7 +68,10 @@ class Solution:
 
     def get_profit(self):
         profit = 0
-
+        for i, assignment in enumerate(self.assignment):
+            if assignment == -1:
+                continue
+            self.orders[i].accept = True
         for order in self.orders:
             time_duration = order.return_time - order.pickup_time
             hour_duration = (time_duration.seconds) // (60*60)
