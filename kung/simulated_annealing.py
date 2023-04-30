@@ -1,5 +1,4 @@
 from MTP_lib import *
-from heapq import heapify, heappush, heappop
 import os
 
 
@@ -24,5 +23,44 @@ def heuristic_algorithm(file_path):
 
     # read data and store the information into your self-defined variables
     solution = Solution(os.path.join(os.path.dirname(__file__), file_path))
+    psudo_profit = 0
+    spent_rearrage_time = 0
+    step_limit = solution.n_S
+    start_time = datetime(2023, 1, 1)
+    candidate_count = solution.n_S
+    step = 0
+    while step <= step_limit:
+        candidate_operation: list[Operation] = []
+        for half_hour in solution.n_D*24*2:
+            current_time = start_time + timedelta(minutes=half_hour*30)
+
     assignment, rearrangement = solution.output()
     return assignment, rearrangement
+
+
+class Operation():
+    def __init__(self, profit: int) -> None:
+        self.profit = profit
+
+
+class AcceptOrder(Operation):
+    def __init__(self, profit: int, order: Order, car_id: int, time_cost: int) -> None:
+        super().__init__(profit)
+        self.order = order
+        self.has_rearrangement = False
+        self.time_cost = time_cost
+
+    def attach_rearrangement(self, rearrangement: Rearragement):
+        self.has_rearrangement = True
+        self.rearrangement = rearrangement
+        self.profit -= self.time_cost*(rearrangement.duration.seconds//60)
+
+
+class DropOrder(Operation):
+    def __init__(self, dropped_order: AcceptOrder, time_cost: int) -> None:
+        if dropped_order.has_rearrangement == False:
+            super().__init__(-1*dropped_order.profit)
+        else:
+            super().__init__(-1*dropped_order.profit+(dropped_order.time_cost + time_cost)
+                             * (dropped_order.rearrangement.duration.seconds//60))
+        self.dropped_order = dropped_order

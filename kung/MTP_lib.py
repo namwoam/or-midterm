@@ -129,7 +129,7 @@ class Solution:
                         print(
                             f"car {rearrange.car_id} not exist at station {rearrange.starting_station} at rearrange ")
                         return False
-                if rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) >= current_time and rearrange.start_time + timedelta(minutes=self.distance[rearrange.starting_station-1][rearrange.end_staion-1]) < current_time + timedelta(minutes=30):
+                if rearrange.start_time + rearrange.duration >= current_time and rearrange.start_time + rearrange.duration < current_time + timedelta(minutes=30):
                     total_used_rearrange_time += self.distance[rearrange.starting_station -
                                                                1][rearrange.end_staion-1]
                     stations[rearrange.end_staion-1].append(rearrange.car_id)
@@ -163,12 +163,12 @@ class Order():
 
 
 class Rearragement():
-    def __init__(self, car_id: int, starting_station: int, ending_station: int, start_time: datetime) -> None:
+    def __init__(self, car_id: int, starting_station: int, ending_station: int, start_time: datetime, duration: timedelta) -> None:
         self.car_id = car_id
         self.starting_station = starting_station
         self.end_staion = ending_station
         self.start_time = start_time
-        pass
+        self.duration = duration
 
 
 def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[list[any]]):
@@ -182,5 +182,5 @@ def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[li
         ending_station = int(end_station)
         start_time = datetime.strptime(start_time, '%Y/%m/%d %H:%M')
         solution.rearragement.append(Rearragement(
-            car_id, starting_station, ending_station, start_time))
+            car_id, starting_station, ending_station, start_time, timedelta(minutes=solution.distance[starting_station-1][end_station-1])))
     return solution.get_feasibility(), solution.get_profit()
