@@ -6,6 +6,7 @@ import pandas as pd  # version: 2.0.0
 import numpy as np
 from gurobipy import *
 from datetime import *
+from random import *
 
 
 class Solution:

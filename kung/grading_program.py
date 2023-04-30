@@ -3,7 +3,7 @@ You do not need to change the code in this file.
 You only need to ensure that the TAs can run your algorithm here.
 '''
 from MTP_lib import *
-from algorithm_module import heuristic_algorithm
+from simulated_annealing import heuristic_algorithm as sa
 from jen_algor import heuristic_algorithm as jen
 
 import sys
@@ -53,10 +53,10 @@ if __name__ == '__main__':
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
             file_path = 'data/' + file_name
-            assignment, rearrangement = jen(file_path)
+            assignment, rearrangement = sa(file_path)
 
         except BaseException as e:
-            print(e)
+            raise e
             print("the algorithm has errors")
 
         end_time = t.time()

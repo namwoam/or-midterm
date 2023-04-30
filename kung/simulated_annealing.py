@@ -1,5 +1,7 @@
+from operator import attrgetter
 from MTP_lib import *
 import os
+import math
 
 
 def heuristic_algorithm(file_path):
@@ -23,16 +25,62 @@ def heuristic_algorithm(file_path):
 
     # read data and store the information into your self-defined variables
     solution = Solution(os.path.join(os.path.dirname(__file__), file_path))
+    print(f"start on:{file_path}")
     psudo_profit = 0
     spent_rearrage_time = 0
     step_limit = solution.n_S
     start_time = datetime(2023, 1, 1)
-    candidate_count = solution.n_S
+    candidate_count = 100
+    past_operation: list[Operation] = []
     step = 0
     while step <= step_limit:
+        print(f"iteration:{step}, psudo_profit={psudo_profit}")
         candidate_operation: list[Operation] = []
-        for half_hour in solution.n_D*24*2:
+        stations: list[list[int]] = []
+        for _ in range(solution.n_S):
+            stations.append([])
+        for car in solution.cars:
+            stations[car.initial_station-1].append(car.car_id)
+        for half_hour in range(solution.n_D*24*2):
             current_time = start_time + timedelta(minutes=half_hour*30)
+            for order in solution.orders:
+                if order.accept == True:
+                    if order.pickup_time == current_time + timedelta(minutes=30):
+                        stations[order.pickup_station -
+                                 1].remove(order.accept_car_id)
+                    elif order.return_time == current_time - timedelta(hours=4):
+                        stations[order.return_station -
+                                 1].append(order.accept_car_id)
+            for rearrangement in solution.rearragement:
+                if rearrangement.start_time == current_time+timedelta(minutes=30):
+                    stations[rearrangement.starting_station -
+                             1].remove(rearrangement.car_id)
+                elif rearrangement.start_time + rearrangement.duration >= current_time and rearrangement.start_time + rearrangement.duration < current_time + timedelta(minutes=30):
+                    stations[rearrangement.end_staion -
+                             1].append(rearrangement.car_id)
+            for order in choices(solution.orders, k=len(solution.orders)//math.ceil(math.log10(len(solution.orders)))):
+                profit = 3 * (order.return_time - order.pickup_time).seconds//(
+                    60*60) * solution.rates[order.level-1].hour_rate
+                if order.pickup_time == current_time + timedelta(minutes=30):
+                    for car_id in stations[order.pickup_station-1]:
+                        if solution.cars[car_id-1].car_level == order.level or solution.cars[car_id-1].car_level == order.level+1:
+                            candidate_operation.append(
+                                AcceptOrder(profit, order, car_id))
+                            break
+            if len(candidate_operation) >= candidate_count:
+                break
+        step += 1
+        if len(candidate_operation) == 0:
+            continue
+        conduct_operation = max(candidate_operation, key=attrgetter('profit'))
+        assert isinstance(conduct_operation, Operation)
+        past_operation.append(conduct_operation)
+        psudo_profit += conduct_operation.profit
+        if isinstance(conduct_operation, AcceptOrder):
+            solution.orders[conduct_operation.order.order_id -
+                            1].accept = True
+            solution.orders[conduct_operation.order.order_id -
+                            1].accept_car_id = conduct_operation.car_id
 
     assignment, rearrangement = solution.output()
     return assignment, rearrangement
@@ -44,13 +92,15 @@ class Operation():
 
 
 class AcceptOrder(Operation):
-    def __init__(self, profit: int, order: Order, car_id: int, time_cost: int) -> None:
+    def __init__(self, profit: int, order: Order, car_id: int, time_cost: int = 0) -> None:
         super().__init__(profit)
         self.order = order
         self.has_rearrangement = False
         self.time_cost = time_cost
+        self.car_id = car_id
 
     def attach_rearrangement(self, rearrangement: Rearragement):
+        assert self.time_cost != 0
         self.has_rearrangement = True
         self.rearrangement = rearrangement
         self.profit -= self.time_cost*(rearrangement.duration.seconds//60)
