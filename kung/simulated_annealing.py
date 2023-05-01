@@ -28,50 +28,67 @@ def heuristic_algorithm(file_path):
     print(f"start on:{file_path}")
     psudo_profit = 0
     spent_rearrage_time = 0
-    step_limit = solution.n_S
+    step_limit = solution.n_K
     start_time = datetime(2023, 1, 1)
     candidate_count = 100
     past_operation: list[Operation] = []
     step = 0
-    while step <= step_limit:
+    real_step = 0
+    while step <= step_limit and real_step <= 2*step_limit:
         print(f"iteration:{step}, psudo_profit={psudo_profit}")
         candidate_operation: list[Operation] = []
-        stations: list[list[int]] = []
-        for _ in range(solution.n_S):
-            stations.append([])
+        car_history: list[list[int]] = []
         for car in solution.cars:
-            stations[car.initial_station-1].append(car.car_id)
-        for half_hour in range(solution.n_D*24*2):
-            current_time = start_time + timedelta(minutes=half_hour*30)
-            for order in solution.orders:
-                if order.accept == True:
-                    if order.pickup_time == current_time + timedelta(minutes=30):
-                        stations[order.pickup_station -
-                                 1].remove(order.accept_car_id)
-                    elif order.return_time == current_time - timedelta(hours=4):
-                        stations[order.return_station -
-                                 1].append(order.accept_car_id)
-            for rearrangement in solution.rearragement:
-                if rearrangement.start_time == current_time+timedelta(minutes=30):
-                    stations[rearrangement.starting_station -
-                             1].remove(rearrangement.car_id)
-                elif rearrangement.start_time + rearrangement.duration >= current_time and rearrangement.start_time + rearrangement.duration < current_time + timedelta(minutes=30):
-                    stations[rearrangement.end_staion -
-                             1].append(rearrangement.car_id)
-            for order in choices(solution.orders, k=len(solution.orders)//math.ceil(math.log10(len(solution.orders)))):
+            car_history.append(
+                [car.initial_station for _ in range(solution.n_D*24*2)])
+
+        for order in sorted(solution.orders, key=attrgetter('pickup_time')):
+            if order.accept == True:
+                begin_time: datetime = order.pickup_time
+                end_time: datetime = order.return_time + timedelta(hours=4.5)
+                begin_half_hour = (begin_time - start_time).seconds//(60*30)
+                end_half_hour = (end_time - start_time).seconds//(60*30)
+                for half_hour in range(begin_half_hour, end_half_hour):
+                    car_history[order.accept_car_id-1][half_hour] = -1
+                for half_hour in range(end_half_hour, len(car_history[order.accept_car_id-1])):
+                    car_history[order.accept_car_id -
+                                1][end_half_hour] = order.return_station
+
+        for rearrangement in solution.rearragement:
+            begin_time: datetime = rearrangement.start_time
+            end_time: datetime = rearrangement.start_time + \
+                rearrangement.duration + timedelta(hours=0.5)
+            begin_half_hour = (begin_time - start_time).seconds//(60*30)
+            end_half_hour = math.ceil(
+                (end_time - start_time).seconds/(60*30))
+            for half_hour in range(begin_half_hour, end_half_hour):
+                car_history[order.accept_car_id-1][half_hour] = -1
+            car_history[order.accept_car_id -
+                        1][end_half_hour] = order.return_station
+        for order in choices(solution.orders, k=(solution.n_K // solution.n_S)):
+            if order.accept == False:
                 profit = 3 * (order.return_time - order.pickup_time).seconds//(
                     60*60) * solution.rates[order.level-1].hour_rate
-                if order.pickup_time == current_time + timedelta(minutes=30):
-                    for car_id in stations[order.pickup_station-1]:
-                        if solution.cars[car_id-1].car_level == order.level or solution.cars[car_id-1].car_level == order.level+1:
+                begin_time: datetime = order.pickup_time
+                end_time: datetime = order.return_time + timedelta(hours=4.5)
+                begin_half_hour = (begin_time - start_time).seconds//(60*30)
+                end_half_hour = (end_time - start_time).seconds//(60*30)
+                for car in solution.cars:
+                    if (car.car_level == order.level or car.car_level == order.level+1) and car_history[car.car_id-1][begin_half_hour] == order.pickup_station:
+                        car_available = True
+                        for half_hour in range(begin_half_hour, end_half_hour):
+                            if car_history[car.car_id-1][half_hour] == -1:
+                                car_available = False
+                                break
+                        if car_available:
                             candidate_operation.append(
-                                AcceptOrder(profit, order, car_id))
+                                AcceptOrder(profit, order, car.car_id))
                             break
-            if len(candidate_operation) >= candidate_count:
-                break
-        step += 1
+        real_step += 1
         if len(candidate_operation) == 0:
             continue
+        step += 1
+        real_step = step
         conduct_operation = max(candidate_operation, key=attrgetter('profit'))
         assert isinstance(conduct_operation, Operation)
         past_operation.append(conduct_operation)
@@ -81,8 +98,8 @@ def heuristic_algorithm(file_path):
                             1].accept = True
             solution.orders[conduct_operation.order.order_id -
                             1].accept_car_id = conduct_operation.car_id
-
     assignment, rearrangement = solution.output()
+    print(assignment)
     return assignment, rearrangement
 
 
