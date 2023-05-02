@@ -17,6 +17,7 @@ class Solution:
         self.distance: list[list[int]] = []
         self.assignment: list[int] = []
         self.rearragement: list[Rearragement] = []
+        self.begin_time = datetime(2023, 1, 1)
         with open(file_path, "r") as reader:
             section = 0
             for line in reader.readlines():
@@ -63,6 +64,7 @@ class Solution:
                         self.distance.append([station_distance])
                     else:
                         self.distance[-1].append(station_distance)
+        self.car_history = np.zeros((self.n_C, self.n_D*24*2))
 
     def output(self):
         self.assignment = [-1 for _ in range(len(self.orders))]
@@ -83,7 +85,7 @@ class Solution:
         profit = 0
         for order in self.orders:
             time_duration = order.return_time - order.pickup_time
-            hour_duration = (time_duration.seconds) // (60*60)
+            hour_duration = (time_duration.total_seconds()) // (60*60)
             if order.accept == True:
                 profit += self.rates[order.level -
                                      1].hour_rate * hour_duration
@@ -92,7 +94,53 @@ class Solution:
                                          1].hour_rate * hour_duration
         return profit
 
-    def get_feasibility(self):
+    def init_history(self):
+        self.car_history = np.zeros((self.n_C, self.n_D*24*2))
+        for i,  car in enumerate(self.cars):
+            self.car_history[i] = car.initial_station
+
+    def update_history(self):
+        self.init_history()
+        for order in self.orders:
+            if order.accept == True:
+                start_time = order.pickup_time
+                end_time = order.return_time+timedelta(hours=4.5)
+                self.make_car_unavailable(
+                    order.accept_car_id, start_time, end_time, order.pickup_station,  order.return_station)
+        for rearrangement in self.rearragement:
+            start_time = rearrangement.start_time
+            end_time = rearrangement.start_time + \
+                rearrangement.duration + timedelta(hours=0.5)
+            self.make_car_unavailable(rearrangement.car_id, start_time, end_time,
+                                      rearrangement.starting_station, rearrangement.end_staion)
+
+    def try_accept_new_order(self, order_id: int, car_id: int):
+        order = self.orders[order_id-1]
+        car = self.cars[car_id-1]
+        start_time = order.pickup_time
+        end_time = order.return_time+timedelta(hours=4.5)
+        if not (order.level == car.car_level or order.level+1 == car.car_level):
+            return False
+        try:
+            self.make_car_unavailable(
+                car_id, start_time, end_time, order.pickup_station, order.pickup_station, True)
+            return True
+        except AssertionError:
+            return False
+
+    def make_car_unavailable(self, car_id: int, start_time: datetime, end_time: datetime, from_station: int, return_station: int, trying: bool = False):
+        start_half_hour = int(
+            (start_time - self.begin_time).total_seconds())//(60*30)
+        end_half_hour = math.ceil(
+            int((end_time - self.begin_time).total_seconds())/(60*30))
+        assert np.all(self.car_history[car_id -
+                                       1][start_half_hour:end_half_hour+1] == from_station)
+        if trying:
+            return
+        self.car_history[car_id-1, start_half_hour:end_half_hour] = -1
+        self.car_history[end_half_hour:] = return_station
+
+    def get_feasibility(self, debug=False):
         self.update_from_outside()
         start_time = datetime(2023, 1, 1)
         stations: list[list[int]] = []
@@ -105,15 +153,20 @@ class Solution:
             stations[car.initial_station-1].append(car.car_id)
         for half_hour in range(self.n_D*24*2):
             current_time = start_time + timedelta(minutes=30*half_hour)
-            print(f"At: {current_time.isoformat()}")
+            if debug:
+                print(f"At: {current_time.isoformat()}")
             if total_used_rearrange_time > self.B:
-                print("Total time exceed B")
+                if debug:
+                    print("Total time exceed B")
                 return False
             for rearrange in self.rearragement:
                 if rearrange.start_time == current_time:
                     if rearrange.car_id in stations[rearrange.starting_station-1]:
                         stations[rearrange.starting_station -
                                  1].remove(rearrange.car_id)
+                        if debug:
+                            print(
+                                f"Rearrange: car {rearrange.car_id} leave from station {rearrange.starting_station} on {rearrange.start_time}")
                     else:
                         print(
                             f"car {rearrange.car_id} not exist at station {rearrange.starting_station} at rearrange ")
@@ -122,22 +175,28 @@ class Solution:
                     total_used_rearrange_time += self.distance[rearrange.starting_station -
                                                                1][rearrange.end_staion-1]
                     stations[rearrange.end_staion-1].append(rearrange.car_id)
+                    if debug:
+                        print(
+                            f"Rearrange: car {rearrange.car_id} return to station {rearrange.end_staion}")
             for order in self.orders:
                 if order.accept == True and order.pickup_time == current_time:
                     if order.accept_car_id in stations[order.pickup_station-1]:
                         stations[order.pickup_station -
                                  1].remove(order.accept_car_id)
-                        print(
-                            f"Order {order.order_id}:car {order.accept_car_id} leave from station {order.pickup_station}")
+                        if debug:
+                            print(
+                                f"Order {order.order_id}:car {order.accept_car_id} leave from station {order.pickup_station}")
                     else:
+
                         print(
                             f"Order {order.order_id}:car {order.accept_car_id} not exist at station {order.pickup_station} at assignment")
                         return False
                 if order.accept == True and order.return_time == current_time:
                     stations[order.return_station -
                              1].append(order.accept_car_id)
-                    print(
-                        f"Order {order.order_id}:car {order.accept_car_id} return to station {order.return_station}")
+                    if debug:
+                        print(
+                            f"Order {order.order_id}:car {order.accept_car_id} return to station {order.return_station}")
 
         return True
 
@@ -183,6 +242,7 @@ def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[li
     solution = Solution(os.path.join(os.path.dirname(__file__), file_path))
     solution.assignment = assignment
     solution.rearragement = []
+    print(rearrangement)
     for list_rearrangement in rearrangement:
         car_id, starting_station, end_station, start_time = list_rearrangement
         car_id = int(car_id)

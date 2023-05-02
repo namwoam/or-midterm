@@ -29,7 +29,6 @@ def heuristic_algorithm(file_path):
     psudo_profit = 0
     spent_rearrage_time = 0
     step_limit = solution.n_K
-    start_time = datetime(2023, 1, 1)
     candidate_count = 100
     past_operation: list[Operation] = []
     step = 0
@@ -37,53 +36,16 @@ def heuristic_algorithm(file_path):
     while step <= step_limit and real_step <= 2*step_limit:
         print(f"iteration:{step}, psudo_profit={psudo_profit}")
         candidate_operation: list[Operation] = []
-        car_history: list[list[int]] = []
-        for car in solution.cars:
-            car_history.append(
-                [car.initial_station for _ in range(solution.n_D*24*2)])
-
-        for order in sorted(solution.orders, key=attrgetter('pickup_time')):
-            if order.accept == True:
-                begin_time: datetime = order.pickup_time
-                end_time: datetime = order.return_time + timedelta(hours=4.5)
-                begin_half_hour = (begin_time - start_time).seconds//(60*30)
-                end_half_hour = (end_time - start_time).seconds//(60*30)
-                for half_hour in range(begin_half_hour, end_half_hour):
-                    car_history[order.accept_car_id-1][half_hour] = -1
-                for half_hour in range(end_half_hour, len(car_history[order.accept_car_id-1])):
-                    car_history[order.accept_car_id -
-                                1][end_half_hour] = order.return_station
-
-        for rearrangement in solution.rearragement:
-            begin_time: datetime = rearrangement.start_time
-            end_time: datetime = rearrangement.start_time + \
-                rearrangement.duration + timedelta(hours=0.5)
-            begin_half_hour = (begin_time - start_time).seconds//(60*30)
-            end_half_hour = math.ceil(
-                (end_time - start_time).seconds/(60*30))
-            for half_hour in range(begin_half_hour, end_half_hour):
-                car_history[order.accept_car_id-1][half_hour] = -1
-            car_history[order.accept_car_id -
-                        1][end_half_hour] = order.return_station
-        for order in choices(solution.orders, k=(solution.n_K // solution.n_S)):
+        solution.update_history()
+        for order in choices(solution.orders, k=solution.n_K // solution.n_S):
             if order.accept == False:
-                profit = 3 * (order.return_time - order.pickup_time).seconds//(
+                profit = 3 * (order.return_time - order.pickup_time).total_seconds()//(
                     60*60) * solution.rates[order.level-1].hour_rate
-                begin_time: datetime = order.pickup_time
-                end_time: datetime = order.return_time + timedelta(hours=4.5)
-                begin_half_hour = (begin_time - start_time).seconds//(60*30)
-                end_half_hour = (end_time - start_time).seconds//(60*30)
                 for car in solution.cars:
-                    if (car.car_level == order.level or car.car_level == order.level+1) and car_history[car.car_id-1][begin_half_hour] == order.pickup_station:
-                        car_available = True
-                        for half_hour in range(begin_half_hour, end_half_hour):
-                            if car_history[car.car_id-1][half_hour] == -1:
-                                car_available = False
-                                break
-                        if car_available:
-                            candidate_operation.append(
-                                AcceptOrder(profit, order, car.car_id))
-                            break
+                    if solution.try_accept_new_order(order.order_id, car.car_id) == True:
+                        candidate_operation.append(
+                            AcceptOrder(profit, order, car.car_id))
+                        break
         real_step += 1
         if len(candidate_operation) == 0:
             continue
@@ -98,6 +60,7 @@ def heuristic_algorithm(file_path):
                             1].accept = True
             solution.orders[conduct_operation.order.order_id -
                             1].accept_car_id = conduct_operation.car_id
+    df = pd.DataFrame(solution.car_history)
     assignment, rearrangement = solution.output()
     print(assignment)
     return assignment, rearrangement
@@ -120,7 +83,8 @@ class AcceptOrder(Operation):
         assert self.time_cost != 0
         self.has_rearrangement = True
         self.rearrangement = rearrangement
-        self.profit -= self.time_cost*(rearrangement.duration.seconds//60)
+        self.profit -= self.time_cost * \
+            int((rearrangement.duration.total_seconds())//60)
 
 
 class DropOrder(Operation):
@@ -129,5 +93,5 @@ class DropOrder(Operation):
             super().__init__(-1*dropped_order.profit)
         else:
             super().__init__(-1*dropped_order.profit+(dropped_order.time_cost + time_cost)
-                             * (dropped_order.rearrangement.duration.seconds//60))
+                             * (dropped_order.rearrangement.duration.total_seconds()//60))
         self.dropped_order = dropped_order
