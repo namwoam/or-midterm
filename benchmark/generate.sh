@@ -1,16 +1,16 @@
 echo "Generating testdata"
 echo "------------------------"
 
-if [[ -d "testdata" ]]; then
-  rm -rf testdata
+if [[ -d "../kung/testdata" ]]; then
+  rm -rf ../kung/testdata
 fi
 
-mkdir testdata
+mkdir ../kung/testdata
 cnt=1
   for i in ./setup-*.py; do
     limit=40
     for ((j = 0 ; j < $limit ; j ++)); do
-      python3 $i > ./testdata/instance-$cnt.txt
+      python3 $i > ../kung/testdata/instance$cnt.txt
       ((cnt+= 1))
     done
   done

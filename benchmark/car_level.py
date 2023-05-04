@@ -21,7 +21,7 @@ def middle_normal_car_level(benchmark: BaseBenchmark):
             levels[index] = 1
         elif level > level_count:
             levels[index] = level_count
-    for car_id in car_count:
+    for car_id in range(car_count):
         benchmark.cars.append(
             Car(car_id+1, int(levels[car_id])))
 

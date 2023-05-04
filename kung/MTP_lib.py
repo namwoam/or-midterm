@@ -133,12 +133,23 @@ class Solution:
             (start_time - self.begin_time).total_seconds())//(60*30)
         end_half_hour = math.ceil(
             int((end_time - self.begin_time).total_seconds())/(60*30))
-        assert np.all(self.car_history[car_id -
-                                       1][start_half_hour:end_half_hour+1] == from_station)
+        cache = np.where(
+            self.car_history[car_id-1, end_half_hour:] == -1, 1, 0)
+        if np.sum(cache) == 0:
+            next_operation_start_half_hour = -1
+        else:
+            next_operation_start_half_hour = end_half_hour + \
+                np.argmax(cache == 1)
+        assert np.all(
+            self.car_history[car_id-1, start_half_hour:end_half_hour] == from_station)
+        assert next_operation_start_half_hour == -1 or np.all(
+            self.car_history[car_id-1, end_half_hour:next_operation_start_half_hour] == return_station)
         if trying:
             return
         self.car_history[car_id-1, start_half_hour:end_half_hour] = -1
-        self.car_history[end_half_hour:] = return_station
+        if next_operation_start_half_hour == -1:
+            self.car_history[car_id-1,
+                             end_half_hour:] = return_station
 
     def get_feasibility(self, debug=False):
         self.update_from_outside()

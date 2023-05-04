@@ -34,16 +34,17 @@ def check_format(assignment, rearrangement):
 
 
 if __name__ == '__main__':
-
+    folder_name = "data"
     # read all instances (.txt file) under data folder
-    all_data_list = os.listdir(os.path.join(os.path.dirname(__file__), 'data'))
+    all_data_list = os.listdir(os.path.join(
+        os.path.dirname(__file__), folder_name))
 
     # evaluate all instances
     result_df = pd.DataFrame(
         columns=['Data name', 'Time', 'Profit', 'Feasibility'])
 
     for file_name in all_data_list:
-
+        print(f"start: {file_name}")
         start_time = t.time()
         profit = np.nan
         feasibility = False
@@ -52,7 +53,7 @@ if __name__ == '__main__':
                 1. We will import your algorithm here and give you file_path (e.g.,'data/instance01.txt') as the function argument.
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
-            file_path = 'data/' + file_name
+            file_path = f'{folder_name}/' + file_name
             assignment, rearrangement = sa(file_path)
 
         except BaseException as e:
@@ -68,6 +69,7 @@ if __name__ == '__main__':
         if not check_format(assignment, rearrangement):
             print("the format has errors")
 
+        print(f"validate: {file_name}")
         feasibility, profit = find_obj_value(
             file_path, assignment, rearrangement)
 

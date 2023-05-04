@@ -44,6 +44,7 @@ def heuristic_algorithm(file_path):
     dfs = []
     fp = open(os.path.join(os.path.dirname(__file__), file_path), 'r')
     start = True
+    print("start parsing")
     for a_row in fp:
         # print(a_row) # a_row is a list
         a_row = a_row.replace('\n', '')
@@ -52,12 +53,13 @@ def heuristic_algorithm(file_path):
             continue
         row = a_row.split(",")
         if start:
+            print(f"New section: {a_row}")
             dfs.append(pd.DataFrame(columns=row))
             start = False
         else:
             n = len(dfs)-1
             dfs[n].loc[len(dfs[n])] = row
-
+    print("end parsing")
     n_S = int(dfs[0].loc[0, "n_S"])
     n_C = int(dfs[0].loc[0, "n_C"])
     n_L = int(dfs[0].loc[0, "n_L"])
@@ -154,7 +156,7 @@ def heuristic_algorithm(file_path):
                             accepted = True
                             break
                         if (not accepted and order.level < n_L):
-                            for j in filter(lambda x: x.station == i[1] and x.rearrangeable + i[1] / 60 + 0.5 <= t, cars[order.level]):
+                            for j in filter(lambda x: x.station == i[1] and x.rearrangeable + i[0] / 60 + 0.5 <= t, cars[order.level]):
                                 rearrange_cars(i, j, order)
                                 accept_order(order, j, order.level)
                                 accepted = True
@@ -167,7 +169,7 @@ def heuristic_algorithm(file_path):
                     df_carPrice.loc[order.level - 1, 'Hour rate'] * \
                     (order.return_time - order.pickup_time)
         t += 0.5
-    # print(file_path, 'profit =', profit)
+    print(file_path, 'profit =', profit)
 
     assignment = [int(i) for i in assignment]
     return assignment, rearrangement
