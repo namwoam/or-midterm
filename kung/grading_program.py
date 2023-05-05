@@ -5,6 +5,7 @@ You only need to ensure that the TAs can run your algorithm here.
 from MTP_lib import *
 from simulated_annealing import heuristic_algorithm as sa
 from jen_algor import heuristic_algorithm as jen
+from chen_sing_Yu_huristic import heuristic_algorithm as ch
 
 import sys
 
@@ -54,7 +55,7 @@ if __name__ == '__main__':
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
             file_path = f'{folder_name}/' + file_name
-            assignment, rearrangement = jen(file_path)
+            assignment, rearrangement = ch(file_path)
 
         except BaseException as e:
             raise e

@@ -8,7 +8,7 @@ import orders
 
 # must use car_rate->car_level->station->start_site->orders
 
-benchmark = BaseBenchmark(1000, 10000, 10, 10000, 20, 1000000)
+benchmark = BaseBenchmark(100, 1000, 10, 1000, 20, 1000000)
 car_rate.linear_car_rate(benchmark)
 car_level.middle_normal_car_level(benchmark)
 station.random_station(benchmark)
