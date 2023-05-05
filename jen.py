@@ -1,5 +1,4 @@
 from MTP_lib import *
-from heapq import heapify, heappush, heappop
 
 def heuristic_algorithm(file_path):
     '''
@@ -43,29 +42,9 @@ def heuristic_algorithm(file_path):
             self.return_time = return_time
         
 
-        '''
-        def accept_or_not(self, order):
-            print(upper_T)
-            for i in range(self.cnt, n_K, 1):
-                if(orders[i].pickup_time <= order.return_time):
-                    self.cnt += 1
-                    for j in range(int(2 * orders[i].pickup_time), int(2 * orders[i].return_time), 1):
-                        self.half_hour_demands[j].orders.append(orders[i])
-                else:
-                    break
-            for i in range(int(2 * order.pickup_time), int(2 * order.return_time), 1):
-                if self.half_hour_demands[i].get_num_demand() > n_C:
-                    result = sorted(self.half_hour_demands[i].orders, key = lambda x: (x.level, x.pickup_time), reverse = True)
-                    if order.level <= result[n_K - 1]:
-                        s
-                    if order not in result[0: n_K]:
-                       self.remove_order(order)
-                       return False
-            return True
-        '''
 
 
-    def read_file(file_path) -> None:
+    def read_file(file_path):
         nonlocal start_time
         nonlocal n_S, n_C, n_L, n_K, n_D, B
         nonlocal cars
@@ -125,27 +104,6 @@ def heuristic_algorithm(file_path):
             i.sort(key = lambda x: x[0])
 
     
-    '''
-    class Demands():
-        class HalfHourDemand():
-            def __init__(self) -> None:
-                self.orders = [] 
-            def get_num_demand(self):
-                return len(self.orders)
-        nonlocal n_K
-        nonlocal orders
-        nonlocal n_C
-        nonlocal t
-        nonlocal upper_T
-    
-
-        def __init__(self) -> None:
-            self.half_hour_demands = [self.HalfHourDemand() for i in range(2 * upper_T)]
-            self.cnt = 0
-        def remove_order(self, order):
-            for i in range(2 * order.pickup_time, 2 * order.return_time, 0.5):
-                self.half_hour_deamnds.orders.remove(order)
-    '''
                     
 
     def accept_order(order, car, level):
@@ -186,29 +144,36 @@ def heuristic_algorithm(file_path):
     rearrangement = []
     profit = 0
     re_hour = 0
-    #useds = []  # (order, car) as element
-    # demands  = Demands()
-    # rearrangeCars = []
     t = 0
     cnt = 0
-    # iterrate times for every 0.5 hour
 
 
     while cnt < n_K:
+        tmpOrders = []
         while cnt < n_K and orders[cnt].pickup_time == t:
+            tmpOrders.append(orders[cnt])
             order = orders[cnt]
             cnt += 1
-            # whether to accept
+
+        tmpOrders.sort(key = lambda x: x.level, reverse = True)
+        
+        for i in range(len(tmpOrders)):
+            if tmpOrders[i].level < n_L / 2:
+                break
+            if i > 0 and tmpOrders[i].level - tmpOrders[i-1].level < 0:
+                tmpOrders[0: i].sort(key = lambda x: x.return_time - x.pickup_time, reverse = True)
+
+        for order in tmpOrders:
             accepted = False
             for c in cars[order.level - 1]:
                 if c.available <= t and c.station == order.pickup_station:
                     accept_order(order, c, order.level)
                     break
-            # upgrade car lrvel
+            # upgrade car level
             if not accepted and order.level < n_L:
                 for c in cars[order.level]:
                     if c.available <= t and c.station == order.pickup_station:
-                        accept_order(order, c, order.level + 1)
+                        accept_order(order, c, order.level)
                         break 
             # rearrangement
             if not accepted:
@@ -231,6 +196,6 @@ def heuristic_algorithm(file_path):
             if not accepted:
                 profit -= 2 * rates[order.level - 1] * (order.return_time - order.pickup_time)
         t += 0.5
-    print(file_path, 'profit =', profit)
+    # print(file_path, 'profit =', profit)
 
     return assignment, rearrangement

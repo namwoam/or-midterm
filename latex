@@ -1,0 +1,177 @@
+\documentclass[11pt,a4paper]{article}
+
+% for Chinese
+\usepackage{fontspec}               		% 加這個就可以設定字體
+\usepackage[BoldFont, SlantFont]{xeCJK} 	% 讓中英文字體分開設置
+\setCJKmainfont{新細明體}
+\usepackage{pifont} % 引入 pifont 宏包
+
+\newcommand{\cmark}{\ding{51}} % 打勾符號
+\newcommand{\xmark}{\ding{55}} % 打叉符號
+
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{natbib}		% citet, citep
+\usepackage{textcomp}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{fullpage}
+\usepackage{authblk}
+\usepackage{url}
+\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart}
+
+\renewcommand{\baselinestretch}{1.4}
+
+\parskip=5pt
+\parindent=20pt
+\footnotesep=5mm
+
+\newtheorem{lem}{Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{ass}{Assumption}
+\newtheorem{obs}{Observation}
+\newenvironment{pf}{\begin{proof}\vspace{-10pt}}{\end{proof}}
+% \newtheorem{ques}{Question}
+% \newtheorem{rmk}{Remark}
+% \newtheorem{note}{Note}
+% \newtheorem{eg}{Example}
+
+\newenvironment{enumerateTight}{\begin{enumerate}\vspace{-8pt}}{\end{enumerate}\vspace{-8pt}}
+\newenvironment{itemizeTight}{\begin{itemize}\vspace{-8pt}}{\end{itemize}\vspace{-8pt}}
+\leftmargini=25pt   % default: 25pt
+\leftmarginii=12pt  % default: 22pt
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+
+
+
+
+
+\title{OR Midterm Project}
+
+\author{梁安哲 B11705009 \hfill \\ 呂臻臻 B09208024 \hfill \\ 張庭庸 B08705047 \hfill \\ 張漢尹 B08611038 \hfill \\ 陳星諭 B09409008 \hfill}
+
+\date{\today}
+
+
+
+\begin{document}
+
+
+%\begin{titlepage}
+\maketitle
+%\thispagestyle{empty}
+
+
+%\end{titlepage}
+
+
+\section*{Problem 1}
+
+\begin{itemize}
+\item Optimal Plan:
+\begin{center}
+\begin{tabular}{ccccc}
+\hline
+ Order ID & Accept or reject & Dispatched Car ID & Upgrade or Same & Profit gain \\
+\hline
+ $1$ & \xmark & \xmark & \xmark & $-3800$ \\
+\hline
+ $2$ & \xmark & \xmark & \xmark & $-6400$ \\
+\hline
+ $3$ & \cmark & 2 & same car & $5600$\\
+\hline
+ $4$ & \cmark & 1 & same car & $5100$\\
+\hline
+ $5$ & \cmark & 6 & same car & $36800$\\
+\hline
+ $6$ & \cmark & 4  & upgrade (from level 1 to 2) & $1500$\\
+\hline
+ $7$ & \cmark & 5 & same car & $27200$\\
+\hline
+ $8$ & \cmark & 6 & same car & $4000$\\
+\hline
+ $9$ & \cmark & 4 & same car & $27200$\\
+\hline
+ $10$ & \cmark & 3 & same car & $9600$\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Total profit: 106,800\\
+
+\pagebreak
+\item Arrangement Detail:
+
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+Car ID & Transport from & Transport to & Latest Departure Time\\
+\hline
+ $2$ & station 2 & station 5 & $2023/1/1 \quad 22:00$ \\
+\hline
+ $4$ & station 4 & station 3 & $2023/1/4\quad 19:30$ \\
+\hline
+ $5$ & station 4 & station 2 & $2023/1/1\quad 23:00$\\
+\hline
+ $4$ & station 3 & station 5 & $2023/1/1\quad 15:30$\\
+\hline
+ $3$ & station 3 & station 4 & $2023/1/1\quad 2:30$\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\end{itemize}
+
+
+
+
+
+
+
+\section*{Problem 2}
+The code is in the attached file
+
+\section*{Problem 3}
+
+
+\section*{Problem 4}
+\subsection*{The design of random instance}
+
+Inside \texttt{benchmark/base.py} we have all the data types such as Car and Order, which help us to bind the data into a more intuitive manner, also the class BaseBenchmark defines how to convert the data of an instance into required text format.
+
+Then, we created multiple helper functions across different categories, such as how to generate different types of cars, or how to generate orders.
+
+First, inside \texttt{benchmark/car\_level.py} and \texttt{benchmark/car\_rate.py}, we define how we generate hourly cost of different levels and different cars given variable $n_C$. The car rate can either be the same (only one level), increase linearly with the increase of car level, or increase exponentially. We can also generate the cars with different levels of distribution, where we have the options of equal distribution or Gaussian distribution. Also, in \texttt{benchmark/start\_site.py}, we define the start site distribution of different cars.
+
+Then, inside \texttt{benchmark/station.py}, we generate the distances between different stations. We use a random number generator to get a station's $x$ and $y$ coordinates, and then compute the distance of different cities (we use the Manhattan matrix to ensure the distances are integer numbers).
+
+Finally, inside \texttt{benchmark/orders.py}, we define how to generate different orders. We generate the level, pick up station, return station, pick up time, and return time all by random.
+
+Then, in \texttt{setup-n.py}, we can generate a test case by creating a \texttt{BaseBenchmark} object and using different helper functions one by one to generate the required data. We can then print out the object data. I also write a shell script to repeat this process multiple times and write the results to \texttt{/benchmark/testdata/instance-n.txt}.
+
+
+Then inside \texttt{benchmark/station.py} we generate the distances between different stations, we use a random number generator to get a station’s x and y coordinates, then compute the distance of different cities (we use the manhattan matrix to ensure the distances to be integer numbers). 
+
+Finally inside benchmark/orders.py defines how to generate different orders, we generate the level, pick up station , return station , pick up time and return time all by random.
+
+Then in setup-n.py, we can generate a test case by creating a BaseBenchmark object, use different helper functions one by one to generate required data, then print out the object data, then I write a shell script to repeat this process over multiple times, and write the results to \texttt{/benchmark/testdata/instance-n.txt}
+
+\subsection*{Experiment of testing our huristic algorithm}
+\begin{enumerate}
+\item Benchmark: Gurobi
+\item Benchmark: Simple huristic
+\end{enumerate}
+\end{document}
