@@ -149,9 +149,21 @@ def heuristic_algorithm(file_path):
 
 
     while cnt < n_K:
+        tmpOrders = []
         while cnt < n_K and orders[cnt].pickup_time == t:
+            tmpOrders.append(orders[cnt])
             order = orders[cnt]
             cnt += 1
+
+        tmpOrders.sort(key = lambda x: x.level, reverse = True)
+        
+        for i in range(len(tmpOrders)):
+            if tmpOrders[i].level < n_L / 2:
+                break
+            if i > 0 and tmpOrders[i].level - tmpOrders[i-1].level < 0:
+                tmpOrders[0: i].sort(key = lambda x: x.return_time - x.pickup_time, reverse = True)
+
+        for order in tmpOrders:
             accepted = False
             for c in cars[order.level - 1]:
                 if c.available <= t and c.station == order.pickup_station:
