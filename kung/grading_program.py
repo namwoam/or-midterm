@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
             file_path = f'{folder_name}/' + file_name
-            assignment, rearrangement = sa(file_path)
+            assignment, rearrangement = jen(file_path)
 
         except BaseException as e:
             raise e
