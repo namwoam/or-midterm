@@ -178,7 +178,11 @@ def heuristic_algorithm(file_path):
 
         
         print("***decision_process***",'\n')
-        print("前面已經接過的單",renting_order,'\n')
+        print("前面已經接過的單")
+
+        for item in renting_order:
+            print(item.order_id )
+        print(dash_board)
 
         #如果是用same_car
         if (count_same!=-1):
@@ -253,39 +257,46 @@ def heuristic_algorithm(file_path):
 
        #decesion[0]是要做什麼決策[1]是使用的車站(如果是move則是從哪裡搬來)[2]需要的車子的levle
         decision = make_decision(take_order,orders[i],orders[i:],dash_board,car_level_fee,move,distances)
-        print(i,decision)
+        print("訂單編號及決策",orders[i].order_id,decision)
 
-
+    
+        id=0
         #如果決定放棄這單
         if (decision[0]==-1):
-            assignment[i]=-1
+            assignment[orders[i].order_id-1]=-1
             continue
-
+     
+        
        #如果是選擇同站同車
-        elif (decision[0]==1): 
-            take_order.append(orders[i]) #決定選這單
-            dash_board[orders[i].pickup_station-1][orders[i].level-1]-=1 #這類車在這個站點的數量扣1
-           #取車，找同站目前有等級一樣的車
-            for car in car_station[decision[1]-1]:
-                if (car.car_level == decision[2]): 
-                   renting_car.append(car) #把它加到目前租借
-                   assignment[i]=car.car_id
-                   car_station[decision[1]-1].remove(car) #把現在車子去掉
-                   break
+        elif (decision[0]==1):
+            if (check_samecar_avalibility(dash_board, orders[i])):
+                take_order.append(orders[i]) #決定選這單
+                dash_board[orders[i].pickup_station-1][orders[i].level-1]-=1 #這類車在這個站點的數量扣1
+                #取車，找同站目前有等級一樣的車
+                for car in car_station[orders[i].pickup_station-1]:
+                    print("找",car.car_id,car.car_level)
+                    if (car.car_level == decision[2]): 
+                       renting_car.append(car) #把它加到目前租借
+                       id=car.car_id
+                       car_station[decision[1]-1].remove(car) #把現在車子去掉
+                       break
+                assignment[orders[i].order_id-1]=id
 
         #如果是選同站升級的車
         elif (decision[0]==2):
             take_order.append(orders[i]) #決定選這單
             dash_board[orders[i].pickup_station-1][orders[i].level]-=1 #這類車在這個站點的數量扣1
-            for car in car_station[decision[1]-1]:     #取車，找同站目前有等級一樣的車
-                if (car.car_level == decision[2]):
+            for car in car_station[orders[i].pickup_station-1]:     #取車，找同站目前有等級一樣的車
+                print("check",car.car_id)
+                if (car.car_level == orders[i].level+1):
                     renting_car.append(car) #把它加到目前租借
-                    assignment[i]=car.car_id
-                    car_station[decision[1]-1].remove(car)
+                    id=car.car_id
+                    car_station[orders[i].pickup_station-1].remove(car)
                     break
+            assignment[orders[i].order_id-1]=id
         
 
-            rearrangement.append(detail)
+
 
 
     print(move)
@@ -304,7 +315,7 @@ def heuristic_algorithm(file_path):
 
 
 
-heuristic_algorithm(r"C:\Users\acer\Downloads\data1\instance01.txt")
+heuristic_algorithm(r"C:\Users\acer\Downloads\data1\instance05.txt")
 
 
 
