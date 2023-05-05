@@ -8,7 +8,7 @@ fi
 mkdir ../kung/testdata
 cnt=1
   for i in ./setup-*.py; do
-    limit=40
+    limit=200
     for ((j = 0 ; j < $limit ; j ++)); do
       python3 $i > ../kung/testdata/instance$cnt.txt
       ((cnt+= 1))

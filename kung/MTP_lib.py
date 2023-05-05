@@ -85,14 +85,14 @@ class Solution:
         profit = 0
         for order in self.orders:
             time_duration = order.return_time - order.pickup_time
-            hour_duration = (time_duration.total_seconds()) // (60*60)
+            half_hour_duration = (time_duration.total_seconds()) // (30*60)
             if order.accept == True:
                 profit += self.rates[order.level -
-                                     1].hour_rate * hour_duration
+                                     1].hour_rate * half_hour_duration*0.5
             else:
                 profit -= 2 * self.rates[order.level -
-                                         1].hour_rate * hour_duration
-        return profit
+                                         1].hour_rate * half_hour_duration*0.5
+        return int(profit)
 
     def init_history(self):
         self.car_history = np.zeros((self.n_C, self.n_D*24*2))
@@ -262,4 +262,4 @@ def find_obj_value(file_path: str, assignment: list[int], rearrangement: list[li
         start_time = datetime.strptime(start_time, '%Y/%m/%d %H:%M')
         solution.rearragement.append(Rearragement(
             car_id, starting_station, ending_station, start_time, timedelta(minutes=solution.distance[starting_station-1][end_station-1])))
-    return solution.get_feasibility(), solution.get_profit()
+    return solution.get_feasibility(debug=True), solution.get_profit()

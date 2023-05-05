@@ -1,0 +1,551 @@
+start: instance01.txt
+  Order ID Level  ...      Pick-up time       Return time
+0        1     1  ...  2023/01/02 09:00  2023/01/03 12:00
+1        2     1  ...  2023/01/01 00:30  2023/01/02 10:30
+2        3     1  ...  2023/01/02 18:00  2023/01/03 02:00
+3        4     2  ...  2023/01/01 08:30  2023/01/02 14:30
+4        5     2  ...  2023/01/01 09:30  2023/01/02 02:30
+
+[5 rows x 6 columns]
+[[(0, 1), (90, 2)], [(0, 2), (90, 1)]]
+***decision_process*** 
+
+前面已經接過的單 [] 
+
+0 (1, 1, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdf0>] 
+
+1 (1, 1, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdf0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bc40>] 
+
+2 (1, 2, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdf0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bc40>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b8e0>] 
+
+3 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bc40>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b8e0>] 
+
+4 (3, 1, 1, 90)
+objective_value 11700.0
+[1, 2, 3, -1, 1]
+[[1, 1, 2, '2023/01/02 16:30']]
+the format has errors
+validate: instance01.txt
+[[1, 1, 2, '2023/01/02 16:30']]
+Order 1, accepeted by car:1, at station 2 in 2023-01-02T09:00:00
+Order 2, accepeted by car:2, at station 1 in 2023-01-01T00:30:00
+Order 3, accepeted by car:3, at station 2 in 2023-01-02T18:00:00
+Order 4, accepeted by car:-1, at station 1 in 2023-01-01T08:30:00
+Order 5, accepeted by car:1, at station 2 in 2023-01-01T09:30:00
+At: 2023-01-01T00:00:00
+At: 2023-01-01T00:30:00
+Order 2:car 2 leave from station 1
+At: 2023-01-01T01:00:00
+At: 2023-01-01T01:30:00
+At: 2023-01-01T02:00:00
+At: 2023-01-01T02:30:00
+At: 2023-01-01T03:00:00
+At: 2023-01-01T03:30:00
+At: 2023-01-01T04:00:00
+At: 2023-01-01T04:30:00
+At: 2023-01-01T05:00:00
+At: 2023-01-01T05:30:00
+At: 2023-01-01T06:00:00
+At: 2023-01-01T06:30:00
+At: 2023-01-01T07:00:00
+At: 2023-01-01T07:30:00
+At: 2023-01-01T08:00:00
+At: 2023-01-01T08:30:00
+At: 2023-01-01T09:00:00
+At: 2023-01-01T09:30:00
+Order 5:car 1 not exist at station 2 at assignment
+start: instance05.txt
+  Order ID Level  ...      Pick-up time       Return time
+0        1     1  ...  2023/01/04 01:00  2023/01/04 20:00
+1        2     1  ...  2023/01/01 16:00  2023/01/03 00:00
+2        3     1  ...  2023/01/02 03:30  2023/01/04 11:30
+3        4     1  ...  2023/01/03 12:00  2023/01/05 15:00
+4        5     2  ...  2023/01/01 00:00  2023/01/04 20:00
+5        6     1  ...  2023/01/04 23:00  2023/01/05 14:00
+6        7     2  ...  2023/01/02 03:30  2023/01/04 23:30
+7        8     2  ...  2023/01/05 04:30  2023/01/05 14:30
+8        9     2  ...  2023/01/01 19:30  2023/01/04 15:30
+9       10     1  ...  2023/01/01 06:00  2023/01/05 06:00
+
+[10 rows x 6 columns]
+[[(0, 1), (180, 2), (270, 6), (300, 4), (330, 5), (450, 3)], [(0, 2), (180, 1), (240, 4), (300, 5), (330, 3), (360, 6)], [(0, 3), (180, 4), (210, 5), (240, 6), (330, 2), (450, 1)], [(0, 4), (120, 5), (150, 6), (180, 3), (240, 2), (300, 1)], [(0, 5), (90, 6), (120, 4), (210, 3), (300, 2), (330, 1)], [(0, 6), (90, 5), (150, 4), (240, 3), (270, 1), (360, 2)]]
+***decision_process*** 
+
+前面已經接過的單 [] 
+
+0 (1, 6, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>] 
+
+1 (2, 4, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>] 
+
+2 (3, 3, 1, 180)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>] 
+
+3 (3, 5, 2, 210)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>] 
+
+4 (3, 2, 1, 300)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b42e0>] 
+
+5 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b42e0>] 
+
+6 (1, 1, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b42e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4400>] 
+
+7 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bfd0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b42e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4400>] 
+
+8 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a140>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bdc0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31bac0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b42e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4400>] 
+
+9 (1, 6, 2)
+objective_value 30300.0
+[6, 5, 3, 4, 2, -1, 1, -1, -1, 6]
+[[3, 3, 4, '2023/01/01 13:00'], [4, 5, 3, '2023/01/01 16:00'], [2, 2, 5, '2023/01/01 22:30']]
+the format has errors
+validate: instance05.txt
+[[3, 3, 4, '2023/01/01 13:00'], [4, 5, 3, '2023/01/01 16:00'], [2, 2, 5, '2023/01/01 22:30']]
+Order 1, accepeted by car:6, at station 1 in 2023-01-04T01:00:00
+Order 2, accepeted by car:5, at station 4 in 2023-01-01T16:00:00
+Order 3, accepeted by car:3, at station 5 in 2023-01-02T03:30:00
+Order 4, accepeted by car:4, at station 1 in 2023-01-03T12:00:00
+Order 5, accepeted by car:2, at station 6 in 2023-01-01T00:00:00
+Order 6, accepeted by car:-1, at station 3 in 2023-01-04T23:00:00
+Order 7, accepeted by car:1, at station 2 in 2023-01-02T03:30:00
+Order 8, accepeted by car:-1, at station 6 in 2023-01-05T04:30:00
+Order 9, accepeted by car:-1, at station 3 in 2023-01-01T19:30:00
+Order 10, accepeted by car:6, at station 4 in 2023-01-01T06:00:00
+At: 2023-01-01T00:00:00
+Order 5:car 2 not exist at station 6 at assignment
+start: instance03.txt
+  Order ID Level  ...      Pick-up time       Return time
+0        1     1  ...  2023/01/01 06:00  2023/01/01 17:00
+1        2     1  ...  2023/01/01 00:30  2023/01/04 21:30
+2        3     1  ...  2023/01/02 20:30  2023/01/06 15:30
+3        4     1  ...  2023/01/05 13:00  2023/01/08 23:00
+4        5     1  ...  2023/01/02 09:30  2023/01/04 19:30
+5        6     1  ...  2023/01/03 03:00  2023/01/06 03:00
+6        7     1  ...  2023/01/06 06:00  2023/01/09 16:00
+7        8     1  ...  2023/01/06 16:00  2023/01/08 18:00
+8        9     1  ...  2023/01/04 16:30  2023/01/07 22:30
+9       10     1  ...  2023/01/08 01:00  2023/01/10 10:00
+
+[10 rows x 6 columns]
+[[(0, 1), (180, 2), (210, 3)], [(0, 2), (180, 1), (330, 3)], [(0, 3), (210, 1), (330, 2)]]
+***decision_process*** 
+
+前面已經接過的單 [] 
+
+0 (1, 3, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4190>] 
+
+1 (1, 2, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4190>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a110>] 
+
+2 (1, 2, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4190>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a110>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ada0>] 
+
+3 (1, 1, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4190>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a110>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ada0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b760>] 
+
+4 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4190>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a110>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ada0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b760>] 
+
+5 (1, 1, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ad10>] 
+
+6 (1, 3, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ad10>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d319960>] 
+
+7 (1, 2, 1)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31b760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ad10>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d319960>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a260>] 
+
+8 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31ad10>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d319960>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d31a260>] 
+
+9 (1, 1, 1)
+objective_value 30800.0
+[4, 2, 5, 1, -1, 3, 4, 2, -1, 5]
+[]
+the format has errors
+validate: instance03.txt
+[]
+Order 1, accepeted by car:4, at station 2 in 2023-01-01T06:00:00
+Order 2, accepeted by car:2, at station 3 in 2023-01-01T00:30:00
+Order 3, accepeted by car:5, at station 1 in 2023-01-02T20:30:00
+Order 4, accepeted by car:1, at station 3 in 2023-01-05T13:00:00
+Order 5, accepeted by car:-1, at station 2 in 2023-01-02T09:30:00
+Order 6, accepeted by car:3, at station 2 in 2023-01-03T03:00:00
+Order 7, accepeted by car:4, at station 2 in 2023-01-06T06:00:00
+Order 8, accepeted by car:2, at station 3 in 2023-01-06T16:00:00
+Order 9, accepeted by car:-1, at station 1 in 2023-01-04T16:30:00
+Order 10, accepeted by car:5, at station 1 in 2023-01-08T01:00:00
+At: 2023-01-01T00:00:00
+At: 2023-01-01T00:30:00
+Order 2:car 2 not exist at station 3 at assignment
+start: instance04.txt
+   Order ID Level  ...      Pick-up time       Return time
+0         1     1  ...  2023/01/01 06:00  2023/01/02 11:00
+1         2     1  ...  2023/01/02 00:30  2023/01/02 10:30
+2         3     1  ...  2023/01/02 03:30  2023/01/03 04:30
+3         4     1  ...  2023/01/03 11:00  2023/01/04 11:00
+4         5     1  ...  2023/01/01 19:00  2023/01/06 00:00
+5         6     1  ...  2023/01/03 06:00  2023/01/04 11:00
+6         7     2  ...  2023/01/04 01:30  2023/01/05 15:00
+7         8     2  ...  2023/01/02 01:00  2023/01/02 20:00
+8         9     2  ...  2023/01/03 15:00  2023/01/05 02:00
+9        10     2  ...  2023/01/02 04:00  2023/01/03 15:00
+10       11     2  ...  2023/01/03 00:00  2023/01/03 13:00
+11       12     2  ...  2023/01/02 17:30  2023/01/03 08:30
+12       13     2  ...  2023/01/03 16:30  2023/01/04 19:30
+13       14     3  ...  2023/01/03 10:30  2023/01/04 10:30
+14       15     3  ...  2023/01/01 14:00  2023/01/03 18:00
+15       16     3  ...  2023/01/01 05:00  2023/01/02 14:00
+16       17     3  ...  2023/01/02 16:30  2023/01/03 16:30
+17       18     3  ...  2023/01/01 14:00  2023/01/02 08:00
+18       19     3  ...  2023/01/05 01:00  2023/01/05 15:00
+19       20     3  ...  2023/01/02 22:30  2023/01/03 14:30
+
+[20 rows x 6 columns]
+[[(0, 1), (300, 8), (360, 2), (360, 3), (510, 4), (510, 6), (540, 9), (690, 5), (690, 7), (840, 10)], [(0, 2), (120, 8), (360, 1), (480, 10), (510, 4), (630, 5), (660, 3), (810, 6), (840, 9), (990, 7)], [(0, 3), (210, 4), (210, 6), (240, 9), (330, 7), (360, 1), (390, 5), (540, 10), (660, 2), (660, 8)], [(0, 4), (180, 5), (210, 3), (300, 6), (330, 9), (330, 10), (480, 7), (510, 1), (510, 2), (510, 8)], [(0, 5), (180, 4), (180, 6), (210, 9), (270, 10), (360, 7), (390, 3), (630, 2), (630, 8), (690, 1)], [(0, 6), (30, 9), (180, 5), (180, 7), (210, 3), (300, 4), (450, 10), (510, 1), (810, 2), (810, 8)], [(0, 7), (150, 9), (180, 6), (330, 3), (360, 5), (480, 4), (630, 10), (690, 1), (990, 2), (990, 8)], [(0, 8), (120, 2), (300, 1), (510, 4), (600, 10), (630, 5), (660, 3), (810, 6), (840, 9), (990, 7)], [(0, 9), (30, 6), (150, 7), (210, 5), (240, 3), (330, 4), (480, 10), (540, 1), (840, 2), (840, 8)], [(0, 10), (270, 5), (330, 4), (450, 6), (480, 2), (480, 9), (540, 3), (600, 8), (630, 7), (840, 1)]]
+***decision_process*** 
+
+前面已經接過的單 [] 
+
+0 (3, 6, 3, 300)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>] 
+
+1 (2, 7, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>] 
+
+2 (3, 7, 3, 180)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>] 
+
+3 (3, 10, 3, 330)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>] 
+
+4 (3, 9, 2, 150)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>] 
+
+5 (3, 4, 1, 330)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>] 
+
+6 (3, 3, 2, 240)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>] 
+
+7 (3, 2, 1, 480)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>] 
+
+8 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>] 
+
+9 (3, 7, 3, 150)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4220>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4370>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>] 
+
+10 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>] 
+
+11 (3, 9, 3, 240)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>] 
+
+12 (2, 2, 3)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>] 
+
+13 (3, 1, 1, 300)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>] 
+
+14 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>] 
+
+15 (3, 3, 2, 360)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4730>] 
+
+16 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4670>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4730>] 
+
+17 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4730>] 
+
+18 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4760>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4070>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b46d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4040>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b45e0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b40a0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4430>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4730>] 
+
+19 (3, 5, 3, 630)
+objective_value 22900.0
+[8, 5, 7, 9, 4, 2, 6, 3, -1, 10, -1, 7, 8, 1, -1, 5, -1, -1, -1, 9]
+[[8, 6, 4, '2023/01/01 00:00'], [7, 7, 6, '2023/01/01 11:00'], [9, 10, 4, '2023/01/01 08:30'], [4, 9, 7, '2023/01/01 16:30'], [2, 4, 10, '2023/01/01 19:00'], [6, 3, 9, '2023/01/01 21:00'], [3, 2, 10, '2023/01/01 19:30'], [10, 7, 9, '2023/01/02 14:00'], [7, 9, 3, '2023/01/02 18:30'], [1, 1, 8, '2023/01/03 01:00'], [5, 3, 1, '2023/01/03 05:00'], [9, 5, 8, '2023/01/04 14:30']]
+the format has errors
+validate: instance04.txt
+[[8, 6, 4, '2023/01/01 00:00'], [7, 7, 6, '2023/01/01 11:00'], [9, 10, 4, '2023/01/01 08:30'], [4, 9, 7, '2023/01/01 16:30'], [2, 4, 10, '2023/01/01 19:00'], [6, 3, 9, '2023/01/01 21:00'], [3, 2, 10, '2023/01/01 19:30'], [10, 7, 9, '2023/01/02 14:00'], [7, 9, 3, '2023/01/02 18:30'], [1, 1, 8, '2023/01/03 01:00'], [5, 3, 1, '2023/01/03 05:00'], [9, 5, 8, '2023/01/04 14:30']]
+Order 1, accepeted by car:8, at station 7 in 2023-01-01T06:00:00
+Order 2, accepeted by car:5, at station 10 in 2023-01-02T00:30:00
+Order 3, accepeted by car:7, at station 10 in 2023-01-02T03:30:00
+Order 4, accepeted by car:9, at station 1 in 2023-01-03T11:00:00
+Order 5, accepeted by car:4, at station 7 in 2023-01-01T19:00:00
+Order 6, accepeted by car:2, at station 8 in 2023-01-03T06:00:00
+Order 7, accepeted by car:6, at station 6 in 2023-01-04T01:30:00
+Order 8, accepeted by car:3, at station 9 in 2023-01-02T01:00:00
+Order 9, accepeted by car:-1, at station 8 in 2023-01-03T15:00:00
+Order 10, accepeted by car:10, at station 8 in 2023-01-02T04:00:00
+Order 11, accepeted by car:-1, at station 2 in 2023-01-03T00:00:00
+Order 12, accepeted by car:7, at station 2 in 2023-01-02T17:30:00
+Order 13, accepeted by car:8, at station 1 in 2023-01-03T16:30:00
+Order 14, accepeted by car:1, at station 5 in 2023-01-03T10:30:00
+Order 15, accepeted by car:-1, at station 4 in 2023-01-01T14:00:00
+Order 16, accepeted by car:5, at station 4 in 2023-01-01T05:00:00
+Order 17, accepeted by car:-1, at station 9 in 2023-01-02T16:30:00
+Order 18, accepeted by car:-1, at station 6 in 2023-01-01T14:00:00
+Order 19, accepeted by car:-1, at station 8 in 2023-01-05T01:00:00
+Order 20, accepeted by car:9, at station 3 in 2023-01-02T22:30:00
+At: 2023-01-01T00:00:00
+Rearrange: car 8 leave from station 6 on 2023-01-01 00:00:00
+At: 2023-01-01T00:30:00
+At: 2023-01-01T01:00:00
+At: 2023-01-01T01:30:00
+At: 2023-01-01T02:00:00
+At: 2023-01-01T02:30:00
+At: 2023-01-01T03:00:00
+At: 2023-01-01T03:30:00
+At: 2023-01-01T04:00:00
+At: 2023-01-01T04:30:00
+At: 2023-01-01T05:00:00
+Rearrange: car 8 return to station 4
+Order 16:car 5 not exist at station 4 at assignment
+start: instance02.txt
+  Order ID Level  ...      Pick-up time       Return time
+0        1     1  ...  2023/01/07 01:00  2023/01/07 15:00
+1        2     1  ...  2023/01/04 23:30  2023/01/06 05:30
+2        3     1  ...  2023/01/04 00:00  2023/01/06 12:00
+3        4     1  ...  2023/01/06 00:00  2023/01/06 11:00
+4        5     1  ...  2023/01/02 04:00  2023/01/07 00:00
+5        6     2  ...  2023/01/05 17:30  2023/01/06 17:30
+6        7     2  ...  2023/01/02 12:00  2023/01/03 04:00
+7        8     2  ...  2023/01/01 13:30  2023/01/02 07:30
+8        9     2  ...  2023/01/02 18:00  2023/01/03 07:00
+9       10     2  ...  2023/01/02 03:30  2023/01/03 07:30
+
+[10 rows x 6 columns]
+[[(0, 1), (180, 2), (210, 3), (240, 4)], [(0, 2), (180, 1), (240, 4), (330, 3)], [(0, 3), (90, 4), (210, 1), (330, 2)], [(0, 4), (90, 3), (240, 1), (240, 2)]]
+***decision_process*** 
+
+前面已經接過的單 [] 
+
+0 (3, 1, 2, 180)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>] 
+
+1 (1, 2, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b43d0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>] 
+
+2 (2, 4, 2)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>] 
+
+3 (3, 4, 2, 240)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4490>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>] 
+
+4 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>] 
+
+5 (3, 1, 1, 240)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44f0>] 
+
+6 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44f0>] 
+
+7 (3, 1, 2, 210)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44f0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4ac0>] 
+
+8 (-1, 0, 0)
+***decision_process*** 
+
+前面已經接過的單 [<chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4af0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44c0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b44f0>, <chen_sing_Yu_huristic.heuristic_algorithm.<locals>.Order object at 0x7f276d1b4ac0>] 
+
+9 (-1, 0, 0)
+objective_value 24600.0
+[3, 2, 4, 3, -1, 1, -1, 2, -1, -1]
+[[3, 1, 2, '2023/01/01 10:30'], [3, 4, 1, '2023/01/02 08:00'], [1, 1, 4, '2023/01/03 20:00'], [2, 1, 3, '2023/01/05 14:00']]
+the format has errors
+validate: instance02.txt
+[[3, 1, 2, '2023/01/01 10:30'], [3, 4, 1, '2023/01/02 08:00'], [1, 1, 4, '2023/01/03 20:00'], [2, 1, 3, '2023/01/05 14:00']]
+Order 1, accepeted by car:3, at station 4 in 2023-01-07T01:00:00
+Order 2, accepeted by car:2, at station 4 in 2023-01-04T23:30:00
+Order 3, accepeted by car:4, at station 4 in 2023-01-04T00:00:00
+Order 4, accepeted by car:3, at station 1 in 2023-01-06T00:00:00
+Order 5, accepeted by car:-1, at station 4 in 2023-01-02T04:00:00
+Order 6, accepeted by car:1, at station 3 in 2023-01-05T17:30:00
+Order 7, accepeted by car:-1, at station 1 in 2023-01-02T12:00:00
+Order 8, accepeted by car:2, at station 2 in 2023-01-01T13:30:00
+Order 9, accepeted by car:-1, at station 3 in 2023-01-02T18:00:00
+Order 10, accepeted by car:-1, at station 2 in 2023-01-02T03:30:00
+At: 2023-01-01T00:00:00
+At: 2023-01-01T00:30:00
+At: 2023-01-01T01:00:00
+At: 2023-01-01T01:30:00
+At: 2023-01-01T02:00:00
+At: 2023-01-01T02:30:00
+At: 2023-01-01T03:00:00
+At: 2023-01-01T03:30:00
+At: 2023-01-01T04:00:00
+At: 2023-01-01T04:30:00
+At: 2023-01-01T05:00:00
+At: 2023-01-01T05:30:00
+At: 2023-01-01T06:00:00
+At: 2023-01-01T06:30:00
+At: 2023-01-01T07:00:00
+At: 2023-01-01T07:30:00
+At: 2023-01-01T08:00:00
+At: 2023-01-01T08:30:00
+At: 2023-01-01T09:00:00
+At: 2023-01-01T09:30:00
+At: 2023-01-01T10:00:00
+At: 2023-01-01T10:30:00
+Rearrange: car 3 leave from station 1 on 2023-01-01 10:30:00
+At: 2023-01-01T11:00:00
+At: 2023-01-01T11:30:00
+At: 2023-01-01T12:00:00
+At: 2023-01-01T12:30:00
+At: 2023-01-01T13:00:00
+At: 2023-01-01T13:30:00
+Rearrange: car 3 return to station 2
+Order 8:car 2 leave from station 2
+At: 2023-01-01T14:00:00
+At: 2023-01-01T14:30:00
+At: 2023-01-01T15:00:00
+At: 2023-01-01T15:30:00
+At: 2023-01-01T16:00:00
+At: 2023-01-01T16:30:00
+At: 2023-01-01T17:00:00
+At: 2023-01-01T17:30:00
+At: 2023-01-01T18:00:00
+At: 2023-01-01T18:30:00
+At: 2023-01-01T19:00:00
+At: 2023-01-01T19:30:00
+At: 2023-01-01T20:00:00
+At: 2023-01-01T20:30:00
+At: 2023-01-01T21:00:00
+At: 2023-01-01T21:30:00
+At: 2023-01-01T22:00:00
+At: 2023-01-01T22:30:00
+At: 2023-01-01T23:00:00
+At: 2023-01-01T23:30:00
+At: 2023-01-02T00:00:00
+At: 2023-01-02T00:30:00
+At: 2023-01-02T01:00:00
+At: 2023-01-02T01:30:00
+At: 2023-01-02T02:00:00
+At: 2023-01-02T02:30:00
+At: 2023-01-02T03:00:00
+At: 2023-01-02T03:30:00
+At: 2023-01-02T04:00:00
+At: 2023-01-02T04:30:00
+At: 2023-01-02T05:00:00
+At: 2023-01-02T05:30:00
+At: 2023-01-02T06:00:00
+At: 2023-01-02T06:30:00
+At: 2023-01-02T07:00:00
+At: 2023-01-02T07:30:00
+Order 8:car 2 return to station 4
+At: 2023-01-02T08:00:00
+car 3 not exist at station 4 at rearrange 

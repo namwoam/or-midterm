@@ -164,8 +164,8 @@ def heuristic_algorithm(file_path):
     def rearrange_cars(d, car, order):
         # nonlocal useds
         # useds = [i for i in useds if d[1] != car]
-        rearrangement.append([int(car.car_id), int(car.station), int(
-            order.pickup_station), (start_time + timedelta(car.rearrangeable)).strftime("%Y/%m/%d %H:%M")])
+        rearrangement.append([int(car.car_id), int(car.station), int(order.pickup_station), (
+            start_time + timedelta(hours=car.rearrangeable)).strftime("%Y/%m/%d %H:%M")])
 
     n_S = 0
     n_C = 0
@@ -232,5 +232,4 @@ def heuristic_algorithm(file_path):
         t += 0.5
     print(file_path, 'profit =', profit)
 
-    assignment = [int(i) for i in assignment]
     return assignment, rearrangement

@@ -6,6 +6,7 @@ from MTP_lib import *
 from simulated_annealing import heuristic_algorithm as sa
 from jen_algor import heuristic_algorithm as jen
 from chen_sing_Yu_huristic import heuristic_algorithm as ch
+from Jen_gurobi import heuristic_algorithm as op
 
 import sys
 
@@ -35,7 +36,7 @@ def check_format(assignment, rearrangement):
 
 
 if __name__ == '__main__':
-    folder_name = "data"
+    folder_name = "testdata"
     # read all instances (.txt file) under data folder
     all_data_list = os.listdir(os.path.join(
         os.path.dirname(__file__), folder_name))
@@ -55,7 +56,7 @@ if __name__ == '__main__':
                 2. You need to return two lists "assignment" and "rearrangement".
                 '''
             file_path = f'{folder_name}/' + file_name
-            assignment, rearrangement = ch(file_path)
+            assignment, rearrangement = jen(file_path)
 
         except BaseException as e:
             raise e

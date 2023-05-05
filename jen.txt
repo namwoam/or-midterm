@@ -1,0 +1,75 @@
+start: instance01.txt
+data/instance01.txt profit = 27900.0
+validate: instance01.txt
+[[3, 1, 2, '2023/01/02 06:30'], [1, 1, 2, '2023/01/02 14:30']]
+Order 1, accepeted by car:3, at station 2 in 2023-01-02T09:00:00
+Order 2, accepeted by car:1, at station 1 in 2023-01-01T00:30:00
+Order 3, accepeted by car:1, at station 2 in 2023-01-02T18:00:00
+Order 4, accepeted by car:2, at station 1 in 2023-01-01T08:30:00
+Order 5, accepeted by car:3, at station 2 in 2023-01-01T09:30:00
+start: instance05.txt
+data/instance05.txt profit = -12300.0
+validate: instance05.txt
+[[4, 5, 4, '2023/01/01 00:00'], [3, 3, 5, '2023/01/01 00:00'], [2, 2, 1, '2023/01/01 00:00'], [4, 5, 3, '2023/01/03 04:00']]
+Order 1, accepeted by car:2, at station 1 in 2023-01-04T01:00:00
+Order 2, accepeted by car:4, at station 4 in 2023-01-01T16:00:00
+Order 3, accepeted by car:3, at station 5 in 2023-01-02T03:30:00
+Order 4, accepeted by car:1, at station 1 in 2023-01-03T12:00:00
+Order 5, accepeted by car:6, at station 6 in 2023-01-01T00:00:00
+Order 6, accepeted by car:4, at station 3 in 2023-01-04T23:00:00
+Order 7, accepeted by car:-1, at station 2 in 2023-01-02T03:30:00
+Order 8, accepeted by car:6, at station 6 in 2023-01-05T04:30:00
+Order 9, accepeted by car:-1, at station 3 in 2023-01-01T19:30:00
+Order 10, accepeted by car:5, at station 4 in 2023-01-01T06:00:00
+start: instance03.txt
+data/instance03.txt profit = 42800.0
+validate: instance03.txt
+[]
+Order 1, accepeted by car:2, at station 2 in 2023-01-01T06:00:00
+Order 2, accepeted by car:4, at station 3 in 2023-01-01T00:30:00
+Order 3, accepeted by car:1, at station 1 in 2023-01-02T20:30:00
+Order 4, accepeted by car:4, at station 3 in 2023-01-05T13:00:00
+Order 5, accepeted by car:2, at station 2 in 2023-01-02T09:30:00
+Order 6, accepeted by car:5, at station 2 in 2023-01-03T03:00:00
+Order 7, accepeted by car:-1, at station 2 in 2023-01-06T06:00:00
+Order 8, accepeted by car:5, at station 3 in 2023-01-06T16:00:00
+Order 9, accepeted by car:3, at station 1 in 2023-01-04T16:30:00
+Order 10, accepeted by car:1, at station 1 in 2023-01-08T01:00:00
+start: instance04.txt
+data/instance04.txt profit = 33000.0
+validate: instance04.txt
+[[8, 6, 4, '2023/01/01 00:00'], [7, 7, 6, '2023/01/01 00:00'], [4, 9, 7, '2023/01/01 00:00'], [2, 4, 10, '2023/01/01 00:00'], [10, 7, 9, '2023/01/01 00:00'], [3, 2, 10, '2023/01/01 00:00'], [9, 10, 8, '2023/01/01 00:00'], [6, 3, 2, '2023/01/01 00:00'], [1, 1, 8, '2023/01/01 00:00'], [10, 10, 5, '2023/01/03 00:00'], [5, 3, 1, '2023/01/02 15:00'], [8, 5, 6, '2023/01/03 22:00'], [7, 10, 8, '2023/01/03 20:30']]
+Order 1, accepeted by car:5, at station 7 in 2023-01-01T06:00:00
+Order 2, accepeted by car:2, at station 10 in 2023-01-02T00:30:00
+Order 3, accepeted by car:3, at station 10 in 2023-01-02T03:30:00
+Order 4, accepeted by car:5, at station 1 in 2023-01-03T11:00:00
+Order 5, accepeted by car:4, at station 7 in 2023-01-01T19:00:00
+Order 6, accepeted by car:1, at station 8 in 2023-01-03T06:00:00
+Order 7, accepeted by car:8, at station 6 in 2023-01-04T01:30:00
+Order 8, accepeted by car:10, at station 9 in 2023-01-02T01:00:00
+Order 9, accepeted by car:-1, at station 8 in 2023-01-03T15:00:00
+Order 10, accepeted by car:9, at station 8 in 2023-01-02T04:00:00
+Order 11, accepeted by car:-1, at station 2 in 2023-01-03T00:00:00
+Order 12, accepeted by car:6, at station 2 in 2023-01-02T17:30:00
+Order 13, accepeted by car:-1, at station 1 in 2023-01-03T16:30:00
+Order 14, accepeted by car:10, at station 5 in 2023-01-03T10:30:00
+Order 15, accepeted by car:8, at station 4 in 2023-01-01T14:00:00
+Order 16, accepeted by car:-1, at station 4 in 2023-01-01T05:00:00
+Order 17, accepeted by car:7, at station 9 in 2023-01-02T16:30:00
+Order 18, accepeted by car:7, at station 6 in 2023-01-01T14:00:00
+Order 19, accepeted by car:7, at station 8 in 2023-01-05T01:00:00
+Order 20, accepeted by car:-1, at station 3 in 2023-01-02T22:30:00
+start: instance02.txt
+data/instance02.txt profit = 70300.0
+validate: instance02.txt
+[[3, 1, 2, '2023/01/01 00:00'], [2, 4, 3, '2023/01/02 11:30'], [1, 1, 4, '2023/01/01 00:00'], [3, 1, 3, '2023/01/03 11:30'], [3, 3, 4, '2023/01/06 21:30']]
+Order 1, accepeted by car:3, at station 4 in 2023-01-07T01:00:00
+Order 2, accepeted by car:1, at station 4 in 2023-01-04T23:30:00
+Order 3, accepeted by car:2, at station 4 in 2023-01-04T00:00:00
+Order 4, accepeted by car:-1, at station 1 in 2023-01-06T00:00:00
+Order 5, accepeted by car:4, at station 4 in 2023-01-02T04:00:00
+Order 6, accepeted by car:3, at station 3 in 2023-01-05T17:30:00
+Order 7, accepeted by car:-1, at station 1 in 2023-01-02T12:00:00
+Order 8, accepeted by car:2, at station 2 in 2023-01-01T13:30:00
+Order 9, accepeted by car:2, at station 3 in 2023-01-02T18:00:00
+Order 10, accepeted by car:3, at station 2 in 2023-01-02T03:30:00
