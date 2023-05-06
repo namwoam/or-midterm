@@ -7,7 +7,7 @@ from simulated_annealing import heuristic_algorithm as sa
 from jen_algor import heuristic_algorithm as jen
 from chen_sing_Yu_huristic import heuristic_algorithm as ch
 from Jen_gurobi import heuristic_algorithm as op
-from simpleHuristic import heuristic_algorithm as sim
+from new_simple import heuristic_algorithm as sim
 
 import sys
 
