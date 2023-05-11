@@ -157,11 +157,13 @@ def heuristic_algorithm(file_path):
 
         tmpOrders.sort(key = lambda x: x.level, reverse = True)
         
+        ind = 0
         for i in range(len(tmpOrders)):
             if tmpOrders[i].level < n_L / 2:
                 break
             if i > 0 and tmpOrders[i].level - tmpOrders[i-1].level < 0:
-                tmpOrders[0: i].sort(key = lambda x: x.return_time - x.pickup_time, reverse = True)
+                tmpOrders[ind: i].sort(key = lambda x: x.return_time - x.pickup_time, reverse = True)
+                ind = i
 
         for order in tmpOrders:
             accepted = False
